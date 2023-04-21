@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logging-view-plugin-config
+  namespace: openshift-logging
+  labels:
+    app: logging-view-plugin
+    app.kubernetes.io/part-of: logging-view-plugin
+data:
+  logging-view-plugin-config.json: |
+    {
+      "useTenantInHeader": false,
+      "isStreamingEnabledInDefaultPage": false,
+      "logLinesLimit": 10,
+      "requestTimeout": 30
+    }

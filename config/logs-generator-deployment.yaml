@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logger
+  namespace: test
+spec:
+  selector:
+    matchLabels:
+      app: logger
+  template:
+    metadata:
+      labels:
+        app: logger
+    spec:
+      containers:
+        - name: logger
+          args:
+            - generate
+            - --output-format=csv
+          image: quay.io/rojacob/cluster-logging-load-client:0.0.1-db25b80
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 32M
+            requests:
+              cpu: 100m
+              memory: 32M

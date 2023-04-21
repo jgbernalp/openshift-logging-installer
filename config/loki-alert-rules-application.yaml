@@ -1,0 +1,34 @@
+kind: AlertingRule
+apiVersion: loki.grafana.com/v1beta1
+metadata:
+  name: alertingrule-sample
+  namespace: test
+  labels:
+    openshift.io/cluster-monitoring: "true"
+spec:
+  tenantID: application
+  groups:
+    - interval: 20s
+      name: loki-alerting-rules-group
+      rules:
+        - alert: HighErrorRate
+          annotations:
+            summary: High error rate, always firing
+          expr: |
+            sum(rate({kubernetes_namespace_name="test"}[5m])) > 0.0
+          for: 10s
+          labels:
+            severity: page
+            tenantId: application
+    - interval: 20s
+      name: loki-pending-alert
+      rules:
+        - alert: LokiPendingAlert
+          annotations:
+            summary: High error rate, pending
+          expr: |
+            sum(rate({kubernetes_namespace_name="test"}[5m])) > 0.00
+          for: 1w
+          labels:
+            severity: page
+            tenantId: application

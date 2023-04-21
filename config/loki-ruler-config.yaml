@@ -1,0 +1,15 @@
+kind: RulerConfig
+apiVersion: loki.grafana.com/v1
+metadata:
+  name: rulerconfig-sample
+  namespace: openshift-logging
+spec:
+  alertmanager:
+    discovery:
+      enableSRV: true
+      refreshInterval: 1m
+    enableV2: true
+    endpoints:
+      - "https://_web._tcp.alertmanager-operated.openshift-monitoring.svc"
+    enabled: true
+    refreshPeriod: 10s

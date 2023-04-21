@@ -1,0 +1,21 @@
+apiVersion: loki.grafana.com/v1beta1
+kind: AlertingRule
+metadata:
+  name: loki-operator-dev
+  namespace: openshift-operators-redhat
+  labels:
+    openshift.io/cluster-monitoring: "true"
+spec:
+  tenantID: "infrastructure"
+  groups:
+    - name: LokiOperatorHighReconciliationError
+      rules:
+        - alert: HighPercentageError
+          expr: |
+            sum(rate({kubernetes_namespace_name="openshift-operators-redhat", kubernetes_pod_name=~"loki-operator-controller-manager.*"}[1m])) > 0.0
+          for: 10s
+          labels:
+            severity: page
+            __tenant_id__: infrastructure
+          annotations:
+            summary: High Loki Operator Reconciliation Errors
