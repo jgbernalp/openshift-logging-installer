@@ -3,7 +3,7 @@
 ## Prepatory steps
 
 - Clone the cluster logging operator repository: [https://github.com/openshift/cluster-logging-operator](https://github.com/openshift/cluster-logging-operator) and checkout the release branch you want to test, e.g. `release-5.6`.
-- Clone loki repo [https://github.com/grafana/loki](https://github.com/grafana/loki), the operator resides inside the repo. Checkout the release branch related to an openshift release you want to test, e.g. `openshift/release-5.6`.
+- Clone loki repo [https://github.com/openshift/loki](https://github.com/openshift/loki), the operator resides inside the repo. Checkout the release branch related to an openshift release you want to test, e.g. `openshift/release-5.6`.
 - Make sure you can create a s3 bucket using the AWS CLI
 - Login to an openshift cluster with the `oc` command
 
