@@ -38,7 +38,7 @@ echo "Creating s3 test bucket"
 aws s3api create-bucket --bucket $S3_BUCKET_NAME --acl private > /dev/null 2>&1
 
 echo "Deploying s3 secret"
-cd "${LOKI_PATH}operator/hack"
+cd "${LOKI_PATH}/operator/hack"
 ./deploy-aws-storage-secret.sh $S3_BUCKET_NAME
 
 echo "Installing Loki Operator"
