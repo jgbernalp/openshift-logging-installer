@@ -26,7 +26,7 @@ REGISTRY_BASE=quay.io/my-user \
 ./scripts/install-operators.sh
 ```
 
-This will create a catalog sourc, install the operators and a s3 secret for the logs storage.
+This will create a catalog source, install the operators and a s3 secret for the logs storage.
 
 ## Install the operators instances
 
