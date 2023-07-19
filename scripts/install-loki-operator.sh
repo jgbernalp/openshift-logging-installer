@@ -6,12 +6,6 @@ then
     exit 1
 fi
 
-if [ -z "$CLUSTER_LOGGING_OPERATOR_PATH" ]
-then
-    echo "CLUSTER_LOGGING_OPERATOR_PATH is not defined"
-    exit 1
-fi
-
 if [ -z "$S3_BUCKET_NAME" ]
 then
     echo "S3_BUCKET_NAME is not defined"
@@ -45,7 +39,3 @@ echo "Installing Loki Operator"
 cd "${LOKI_PATH}/operator"
 make olm-deploy REGISTRY_BASE=$REGISTRY_BASE VARIANT=openshift
 
-echo "Installing Cluster Logging Operator"
-cd $CLUSTER_LOGGING_OPERATOR_PATH
-make cluster-logging-catalog-deploy
-make cluster-logging-operator-install

@@ -1,5 +1,5 @@
 kind: AlertingRule
-apiVersion: loki.grafana.com/v1beta1
+apiVersion: loki.grafana.com/v1
 metadata:
   name: alertingrule-sample
   namespace: test
@@ -14,11 +14,12 @@ spec:
         - alert: HighErrorRate
           annotations:
             summary: High error rate, always firing
+            description: High error rate, always firing
           expr: |
             sum(rate({kubernetes_namespace_name="test"}[5m])) > 0.0
           for: 10s
           labels:
-            severity: page
+            severity: critical
             tenantId: application
     - interval: 20s
       name: loki-pending-alert
@@ -26,9 +27,10 @@ spec:
         - alert: LokiPendingAlert
           annotations:
             summary: High error rate, pending
+            description: High error rate, pending
           expr: |
             sum(rate({kubernetes_namespace_name="test"}[5m])) > 0.00
           for: 1w
           labels:
-            severity: page
+            severity: critical
             tenantId: application

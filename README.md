@@ -9,9 +9,27 @@
 
 ## Install the operators
 
-Run the install operators script with the following env variables:
+# Install the cluster logging operator
+
+Checkout the release branch you want to test, e.g. `release-5.7` for the cluster logging operator.
+
+Run `./scripts/install-cluster-logging-operator.sh` script with the following env variables:
 
 - `CLUSTER_LOGGING_OPERATOR_PATH` - path to the cluster logging operator repository
+
+```bash
+CLUSTER_LOGGING_OPERATOR_PATH=/Users/openshift/oss/cluster-logging-operator \
+./scripts/icluster-logging-operator.sh
+```
+
+This will create a catalog source and install the operator.
+
+# Install the loki operator
+
+Checkout the release branch you want to test, e.g. `release-5.7` for the cluster logging operator.
+
+Run `./scripts/install-loki-operator.sh` script with the following env variables:
+
 - `LOKI_PATH` - path to loki repository
 - `S3_BUCKET_NAME` - name of the s3 bucket to use for log storage, add your username so is easily identifiable
 - `REGISTRY_BASE` - base url of the registry to use for the images, e.g. `quay.io/{your-username}` required for the loki operator to be installed
@@ -19,16 +37,23 @@ Run the install operators script with the following env variables:
 for example:
 
 ```bash
-CLUSTER_LOGGING_OPERATOR_PATH=/Users/openshift/oss/cluster-logging-operator \
 LOKI_PATH=/Users/openshift/oss/loki \
 S3_BUCKET_NAME=my-user-logs-test \
 REGISTRY_BASE=quay.io/my-user \
 ./scripts/install-operators.sh
 ```
 
-This will create a catalog source, install the operators and a s3 secret for the logs storage.
+This will create an s3 bucket, configure a secret for it and install the loki operator.
 
-## Install the operators instances
+## Create the operators instances
+
+# Create the cluster logging instance
+
+Run `scripts/create-cluster-logging-instance.sh`
+
+this will create a testing app that generates logs and a `ClusterLogging` instance.
+
+# Create the lokiStack instance
 
 Run the create instances script with the following env variables:
 
@@ -36,10 +61,10 @@ Run the create instances script with the following env variables:
 
 ```bash
 ENABLE_LOG_BASED_ALERTS=true \
-./scripts/create-instances.sh
+./scripts/create-loki-instance.sh
 ```
 
-This will create a `ClusterLogging` instance and a `LokiStack` instance, if `ENABLE_LOG_BASED_ALERTS` is set to `true` it will also create a ruler in the lokistack instance and some testing alerting rules for `application` and `infrastructure` tenants.
+This will create a `LokiStack` instance, if `ENABLE_LOG_BASED_ALERTS` is set to `true` it will also create a ruler in the lokiStack instance and some testing alerting rules for `application` and `infrastructure` tenants.
 
 ## Enable the logging view plugin
 

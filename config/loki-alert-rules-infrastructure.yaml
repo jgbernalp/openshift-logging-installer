@@ -1,4 +1,4 @@
-apiVersion: loki.grafana.com/v1beta1
+apiVersion: loki.grafana.com/v1
 kind: AlertingRule
 metadata:
   name: loki-operator-dev
@@ -15,7 +15,8 @@ spec:
             sum(rate({kubernetes_namespace_name="openshift-operators-redhat", kubernetes_pod_name=~"loki-operator-controller-manager.*"}[1m])) > 0.0
           for: 10s
           labels:
-            severity: page
+            severity: critical
             __tenant_id__: infrastructure
           annotations:
             summary: High Loki Operator Reconciliation Errors
+            description: High Loki Operator Reconciliation Errors
