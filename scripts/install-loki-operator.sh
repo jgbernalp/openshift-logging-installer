@@ -25,16 +25,6 @@ oc label ns/openshift-operators-redhat openshift.io/cluster-monitoring=true --ov
 oc create namespace openshift-logging
 oc label ns/openshift-logging openshift.io/cluster-monitoring=true --overwrite
 
-oc create namespace test
-oc label ns/test openshift.io/cluster-monitoring=true --overwrite
-
-echo "Creating s3 test bucket"
-aws s3api create-bucket --bucket $S3_BUCKET_NAME --acl private > /dev/null 2>&1
-
-echo "Deploying s3 secret"
-cd "${LOKI_PATH}/operator/hack"
-./deploy-aws-storage-secret.sh $S3_BUCKET_NAME
-
 echo "Installing Loki Operator"
 cd "${LOKI_PATH}/operator"
 make olm-deploy REGISTRY_BASE=$REGISTRY_BASE VARIANT=openshift

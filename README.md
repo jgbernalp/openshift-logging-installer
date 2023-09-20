@@ -19,7 +19,7 @@ Run `./scripts/install-cluster-logging-operator.sh` script with the following en
 
 ```bash
 CLUSTER_LOGGING_OPERATOR_PATH=/Users/openshift/oss/cluster-logging-operator \
-./scripts/icluster-logging-operator.sh
+./scripts/install-cluster-logging-operator.sh
 ```
 
 This will create a catalog source and install the operator.
@@ -31,19 +31,17 @@ Checkout the release branch you want to test, e.g. `release-5.7` for the cluster
 Run `./scripts/install-loki-operator.sh` script with the following env variables:
 
 - `LOKI_PATH` - path to loki repository
-- `S3_BUCKET_NAME` - name of the s3 bucket to use for log storage, add your username so is easily identifiable
 - `REGISTRY_BASE` - base url of the registry to use for the images, e.g. `quay.io/{your-username}` required for the loki operator to be installed
 
 for example:
 
 ```bash
 LOKI_PATH=/Users/openshift/oss/loki \
-S3_BUCKET_NAME=my-user-logs-test \
 REGISTRY_BASE=quay.io/my-user \
-./scripts/install-operators.sh
+./scripts/install-loki-operator.sh
 ```
 
-This will create an s3 bucket, configure a secret for it and install the loki operator.
+This will and install the loki operator.
 
 ## Create the operators instances
 
@@ -58,13 +56,19 @@ this will create a testing app that generates logs and a `ClusterLogging` instan
 Run the create instances script with the following env variables:
 
 - `ENABLE_LOG_BASED_ALERTS` - set to `true` to enable log based alerts
+- `LOKI_PATH` - path to loki repository
+- `S3_BUCKET_NAME` - name of the s3 bucket to use for log storage, add your username so is easily identifiable
 
 ```bash
 ENABLE_LOG_BASED_ALERTS=true \
+LOKI_PATH=/Users/openshift/oss/loki \
+S3_BUCKET_NAME=my-user-logs-test \
 ./scripts/create-loki-instance.sh
 ```
 
-This will create a `LokiStack` instance, if `ENABLE_LOG_BASED_ALERTS` is set to `true` it will also create a ruler in the lokiStack instance and some testing alerting rules for `application` and `infrastructure` tenants.
+This will create a `LokiStack` instance, an s3 bucket, configure a secret for it.
+
+If `ENABLE_LOG_BASED_ALERTS` is set to `true` it will also create a ruler in the lokiStack instance and some testing alerting rules for `application` and `infrastructure` tenants.
 
 ## Enable the logging view plugin
 
