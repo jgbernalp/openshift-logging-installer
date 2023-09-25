@@ -16,9 +16,6 @@ else
   oc apply -n openshift-logging -f ./config/loki-stack.yaml
 fi
 
-oc create namespace test
-oc label ns/test openshift.io/cluster-monitoring=true --overwrite
-
 echo "Creating s3 test bucket"
 aws s3api create-bucket --bucket $S3_BUCKET_NAME --acl private > /dev/null 2>&1
 
